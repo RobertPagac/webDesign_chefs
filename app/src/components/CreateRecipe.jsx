@@ -11,6 +11,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import Alert from './Alert';
 import Success from './Success';
+import mockDatabase from './mockDatabase';
 
 const RecipeForm = () => {
   const [error, setError] = useState(null);
@@ -78,7 +79,7 @@ const RecipeForm = () => {
         top: 0,
         behavior: 'smooth',
       });
-      setFormError("Please add at least one ingredient!");
+      setFormError("Please fill in all ingredient fields and remove any empty ones!");
       return;
     }
   
@@ -117,6 +118,13 @@ const RecipeForm = () => {
         top: 0,
         behavior: 'smooth',
       });
+      const newRecipe = {
+        id: mockDatabase.recipes.length + 1,
+        name: recipe.name,
+        image: recipe.photo ? URL.createObjectURL(recipe.photo) : "/src/assets/default.jpg",
+        description: "Cooked 0x • Avg Time: -- min",
+    };
+    mockDatabase.recipes.push(newRecipe);
       setRecipe({
         name: '',
         ingredients: [''],
@@ -324,4 +332,3 @@ const RecipeForm = () => {
 };
 
 export default RecipeForm;
-
